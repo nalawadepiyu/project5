@@ -1,9 +1,9 @@
 <h1> Linux Server Configuration </h1>
 <p>
 <ul>
-<li>Local IP Address: 54.148.219.205</li>
+<li>Local IP Address: 52.37.130.132</li>
 <li>SSH port: 2200</li>
-<li>Login with ssh -i grader@54.148.219.205 </li>
+<li>Login with ssh -i "id_rsa" grader@52.37.130.132 -p 2200 </li>
 <li>Do ssh-keygen get id_rsa.pub key from your local machine and save in /home/grader/.ssh/authorized_keys in Lightsail AWS instance</li>
 </ul>
 </p>
@@ -13,6 +13,7 @@
 <ul>
 <li>Amazon Lightsail Instance username: ubnutu</li>
 <li> Public IP: 54.148.219.205 </li>
+<li>Add Custome port 2200 under networking tab of AWS lightsail instance </li>
 </ul>
 <h2>
 <ul>
@@ -58,8 +59,7 @@
 engine = create_engine('postgresql://catalog:password@localhost/catalog') in database_setup.py, details.py, catalogproject.py</li>
 <li>Rename catalogproject.py to __init__.py</li>
 <li>edit path for clients_secrets.json in __init__.py: by import os</li>
-<li>path = os.path.dirname(__file__)</li>
-<li>CLIENT_ID = json.loads(open(path+'/client_secrets.json', 'r').read())['web']['client_id']</li>
+<li>CLIENT_ID = json.loads('var/www/FlaskApp/FlaskApp/client_secrets.json', 'r').read())['web']['client_id']</li>
 <li>sudo apt-get install python-pip</li>
 <li>sudo apt-get -qqy install postgresql python-psycopg2</li>
 <li>Install sqlalchemy, flask, requests, httplib2</li>
@@ -85,13 +85,13 @@ logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,"/var/www/FlaskApp/")
 
 from FlaskApp import app as application
-application.secret_key = 'Add your secret key'
+application.secret_key = 'super_secret_key'
 </p>
 <br>
 <li>sudo nano /etc/apache2/sites-available/FlaskApp.conf</li>
 <p>
 <VirtualHost *:80>
-	ServerName 54.148.219.205
+	ServerName 52.37.130.132
 	ServerAdmin priyankanalawade108@gmail.com
 	WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi
 	<Directory /var/www/FlaskApp/FlaskApp/>
